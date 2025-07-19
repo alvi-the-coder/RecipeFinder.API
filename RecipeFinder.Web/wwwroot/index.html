@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Smart Recipe Finder</title>
+    <link rel="stylesheet" href="css/site.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Smart Recipe Finder</h1>
+            <p class="subtitle">Find recipes based on ingredients you have or view our available recipes</p>
+            <p class="subtitle">*Click on "Load All Recipes" to view our available recipes</p>
+        </header>
+
+        <main>
+            <section class="search-section">
+                <div class="input-group">
+                    <label for="ingredients">Your Ingredients:</label>
+                    <input id="ingredients" 
+                           placeholder="Enter ingredients (comma-separated)" 
+                           class="form-input" />
+                    <small class="hint">Example: egg, flour, milk</small>
+                </div>
+
+                <div class="actions">
+                    <button id="findRecipesBtn" class="btn btn-primary">Find Recipes</button>
+                    <button id="loadAllBtn" class="btn btn-secondary">Load All Recipes</button>
+                </div>
+            </section>
+
+            <section class="results-section">
+                <h2>Available Recipes</h2>
+                <div id="displayBox" class="recipe-display"></div>
+                <ul id="recipeList" class="recipe-list"></ul>
+            </section>
+        </main>
+    </div>
+    <script type="module" src="js/app.js"></script>
+</body>
+</html>
