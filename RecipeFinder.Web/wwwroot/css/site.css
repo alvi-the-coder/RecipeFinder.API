@@ -122,10 +122,10 @@ label {
 }
 
 .results-section h2 {
-    color: #dc2626;
+    color: #000000;
     font-size: 1.75rem;
     text-align: center;
-    background: #f09e4f;
+    background: #2ecc71f;
 }
 
 .recipe-count {
@@ -140,7 +140,7 @@ label {
 
 /* Recipe Card styles */
 .recipe-card {
-    background: #e1a3c7ca;
+    background: #7ce995bf;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     margin-bottom: 1.5rem;
     padding: 1.5rem;
