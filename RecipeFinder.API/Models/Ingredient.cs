@@ -1,5 +1,7 @@
 ﻿namespace RecipeFinder.API.Models
 {
+    //creating class ingredients with get and set property accessors
+    //allows for the variables to get and set values
     public class Ingredient
     {
         public int Id { get; set; }

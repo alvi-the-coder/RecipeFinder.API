@@ -3,10 +3,8 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RecipeFinder.API.Data
 {
-    /// <summary>
-    /// Database context for the recipe finder application.
-    /// Handles the connection to SQLite and defines the database schema.
-    /// </summary>
+    // Database context for the recipe finder application.
+    // Handles the connection to SQLite and defines the database schema.
     public class CookingContext : DbContext
     {
         public CookingContext(DbContextOptions<CookingContext> options)

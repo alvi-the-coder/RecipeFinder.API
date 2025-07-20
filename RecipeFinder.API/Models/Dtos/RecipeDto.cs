@@ -2,9 +2,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RecipeFinder.API.Models.Dtos
 {
-    /// <summary>
-    /// Data transfer object for creating or updating a recipe
-    /// </summary>
+    // Data transfer object for creating or updating a recipe
     public class RecipeDto
     {
         [Required]
@@ -18,9 +16,7 @@ namespace RecipeFinder.API.Models.Dtos
         public List<int> IngredientIds { get; set; } = new List<int>();
     }
 
-    /// <summary>
-    /// Data transfer object for recipe details including ingredients
-    /// </summary>
+    // Data transfer object for recipe details including ingredients
     public class RecipeDetailDto
     {
         public int Id { get; set; }
@@ -29,9 +25,7 @@ namespace RecipeFinder.API.Models.Dtos
         public List<IngredientDto> Ingredients { get; set; } = new List<IngredientDto>();
     }
 
-    /// <summary>
-    /// Data transfer object for basic ingredient information
-    /// </summary>
+    // Data transfer object for basic ingredient information
     public class IngredientDto
     {
         [Required]

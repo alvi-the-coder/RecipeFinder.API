@@ -14,7 +14,7 @@ namespace RecipeFinder.Tests
         [Fact]
         public async Task GetAll_ReturnsOkWithIngredients()
         {
-            // Arrange: Use EF Core InMemory
+            // Arrange
             var options = new DbContextOptionsBuilder<CookingContext>()
                 .UseInMemoryDatabase(databaseName: "IngredientsDb1")
                 .Options;
@@ -42,7 +42,7 @@ namespace RecipeFinder.Tests
         [Fact]
         public async Task GetAll_WhenException_ReturnsStatusCode500()
         {
-            // Arrange: Use EF Core InMemory, but dispose context to force exception
+            // Arrange
             var options = new DbContextOptionsBuilder<CookingContext>()
                 .UseInMemoryDatabase(databaseName: "IngredientsDb2")
                 .Options;
@@ -65,7 +65,7 @@ namespace RecipeFinder.Tests
         [Fact]
         public async Task GetById_ReturnsOkWithIngredient()
         {
-            // Arrange: Use EF Core InMemory
+            // Arrange
             var options = new DbContextOptionsBuilder<CookingContext>()
                 .UseInMemoryDatabase(databaseName: "IngredientsDb3")
                 .Options;
@@ -88,7 +88,7 @@ namespace RecipeFinder.Tests
         [Fact]
         public async Task GetById_WhenNotFound_ReturnsNotFound()
         {
-            // Arrange: Use EF Core InMemory
+            // Arrange
             var options = new DbContextOptionsBuilder<CookingContext>()
                 .UseInMemoryDatabase(databaseName: "IngredientsDb4")
                 .Options;
@@ -107,7 +107,7 @@ namespace RecipeFinder.Tests
         [Fact]
         public async Task GetById_WhenException_ReturnsStatusCode500()
         {
-            // Arrange: Use EF Core InMemory, but dispose context to force exception
+            // Arrange
             var options = new DbContextOptionsBuilder<CookingContext>()
                 .UseInMemoryDatabase(databaseName: "IngredientsDb5")
                 .Options;
@@ -130,6 +130,7 @@ namespace RecipeFinder.Tests
         [Fact]
         public async Task Create_AddsIngredient_ReturnsCreated()
         {
+            //Arrange
             var options = new DbContextOptionsBuilder<CookingContext>()
                 .UseInMemoryDatabase(databaseName: "IngredientsDb6")
                 .Options;
@@ -137,6 +138,7 @@ namespace RecipeFinder.Tests
             var logger = new LoggerFactory().CreateLogger<IngredientsController>();
             var controller = new IngredientsController(context, logger);
 
+            //Act
             var dto = new IngredientDto { Name = "Salt" };
             var result = await controller.Create(dto);
 
@@ -149,6 +151,7 @@ namespace RecipeFinder.Tests
         [Fact]
         public async Task Create_WhenDuplicate_ReturnsBadRequest()
         {
+            // Arrange
             var options = new DbContextOptionsBuilder<CookingContext>()
                 .UseInMemoryDatabase(databaseName: "IngredientsDb7")
                 .Options;
@@ -159,8 +162,10 @@ namespace RecipeFinder.Tests
             var controller = new IngredientsController(context, logger);
 
             var dto = new IngredientDto { Name = "Pepper" };
+            // Act
             var result = await controller.Create(dto);
 
+            // Assert
             var badRequest = Assert.IsType<BadRequestObjectResult>(result.Result);
             Assert.Equal("Ingredient with name 'Pepper' already exists", badRequest.Value);
         }
@@ -168,6 +173,7 @@ namespace RecipeFinder.Tests
         [Fact]
         public async Task Create_WhenException_ReturnsStatusCode500()
         {
+            // Arrange
             var options = new DbContextOptionsBuilder<CookingContext>()
                 .UseInMemoryDatabase(databaseName: "IngredientsDb8")
                 .Options;
@@ -177,8 +183,10 @@ namespace RecipeFinder.Tests
             var controller = new IngredientsController(context, logger);
 
             var dto = new IngredientDto { Name = "Onion" };
+            // Act
             var result = await controller.Create(dto);
 
+            // Assert
             var statusResult = Assert.IsType<ObjectResult>(result.Result);
             Assert.Equal(500, statusResult.StatusCode);
             Assert.Equal("An error occurred while creating the ingredient", statusResult.Value);
@@ -188,6 +196,7 @@ namespace RecipeFinder.Tests
         [Fact]
         public async Task Update_Ingredient_ReturnsOkWithUpdatedName()
         {
+            // Arrange
             var options = new DbContextOptionsBuilder<CookingContext>()
                 .UseInMemoryDatabase(databaseName: "IngredientsDb9")
                 .Options;
@@ -198,8 +207,10 @@ namespace RecipeFinder.Tests
             var controller = new IngredientsController(context, logger);
 
             var dto = new IngredientDto { Name = "Margarine" };
+            // Act
             var result = await controller.Update(10, dto);
 
+            // Assert
             var okResult = Assert.IsType<OkObjectResult>(result);
             var ingredient = Assert.IsType<IngredientDto>(okResult.Value);
             Assert.Equal("Margarine", ingredient.Name);
@@ -208,6 +219,7 @@ namespace RecipeFinder.Tests
         [Fact]
         public async Task Update_WhenNotFound_ReturnsNotFound()
         {
+            // Arrange
             var options = new DbContextOptionsBuilder<CookingContext>()
                 .UseInMemoryDatabase(databaseName: "IngredientsDb10")
                 .Options;
@@ -216,8 +228,10 @@ namespace RecipeFinder.Tests
             var controller = new IngredientsController(context, logger);
 
             var dto = new IngredientDto { Name = "Oil" };
+            // Act
             var result = await controller.Update(99, dto);
 
+            // Assert
             var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
             Assert.Equal("Ingredient with ID 99 not found", notFoundResult.Value);
         }
@@ -225,6 +239,7 @@ namespace RecipeFinder.Tests
         [Fact]
         public async Task Update_WhenNameConflict_ReturnsBadRequest()
         {
+            // Arrange
             var options = new DbContextOptionsBuilder<CookingContext>()
                 .UseInMemoryDatabase(databaseName: "IngredientsDb11")
                 .Options;
@@ -236,8 +251,10 @@ namespace RecipeFinder.Tests
             var controller = new IngredientsController(context, logger);
 
             var dto = new IngredientDto { Name = "Maple" };
+            // Act
             var result = await controller.Update(20, dto);
 
+            // Assert
             var badRequest = Assert.IsType<BadRequestObjectResult>(result);
             Assert.Equal("Ingredient with name 'Maple' already exists", badRequest.Value);
         }
@@ -245,6 +262,7 @@ namespace RecipeFinder.Tests
         [Fact]
         public async Task Update_WhenException_ReturnsStatusCode500()
         {
+            // Arrange
             var options = new DbContextOptionsBuilder<CookingContext>()
                 .UseInMemoryDatabase(databaseName: "IngredientsDb12")
                 .Options;
@@ -254,8 +272,10 @@ namespace RecipeFinder.Tests
             var controller = new IngredientsController(context, logger);
 
             var dto = new IngredientDto { Name = "Jam" };
+            // Act
             var result = await controller.Update(1, dto);
 
+            // Assert
             var statusResult = Assert.IsType<ObjectResult>(result);
             Assert.Equal(500, statusResult.StatusCode);
             Assert.Equal("An error occurred while updating the ingredient", statusResult.Value);
@@ -265,6 +285,7 @@ namespace RecipeFinder.Tests
         [Fact]
         public async Task Delete_Ingredient_ReturnsNoContent()
         {
+            // Arrange
             var options = new DbContextOptionsBuilder<CookingContext>()
                 .UseInMemoryDatabase(databaseName: "IngredientsDb13")
                 .Options;
@@ -274,14 +295,17 @@ namespace RecipeFinder.Tests
             var logger = new LoggerFactory().CreateLogger<IngredientsController>();
             var controller = new IngredientsController(context, logger);
 
+            // Act
             var result = await controller.Delete(30);
 
+            // Assert
             Assert.IsType<NoContentResult>(result);
         }
 
         [Fact]
         public async Task Delete_WhenNotFound_ReturnsNotFound()
         {
+            // Arrange
             var options = new DbContextOptionsBuilder<CookingContext>()
                 .UseInMemoryDatabase(databaseName: "IngredientsDb14")
                 .Options;
@@ -289,8 +313,10 @@ namespace RecipeFinder.Tests
             var logger = new LoggerFactory().CreateLogger<IngredientsController>();
             var controller = new IngredientsController(context, logger);
 
+            // Act
             var result = await controller.Delete(99);
 
+            // Assert
             var notFoundResult = Assert.IsType<NotFoundObjectResult>(result);
             Assert.Equal("Ingredient with ID 99 not found", notFoundResult.Value);
         }
@@ -298,6 +324,7 @@ namespace RecipeFinder.Tests
         [Fact]
         public async Task Delete_WhenUsedInRecipe_ReturnsBadRequest()
         {
+            // Arrange
             var options = new DbContextOptionsBuilder<CookingContext>()
                 .UseInMemoryDatabase(databaseName: "IngredientsDb15")
                 .Options;
@@ -309,8 +336,10 @@ namespace RecipeFinder.Tests
             var logger = new LoggerFactory().CreateLogger<IngredientsController>();
             var controller = new IngredientsController(context, logger);
 
+            // Act
             var result = await controller.Delete(40);
 
+            // Assert
             var badRequest = Assert.IsType<BadRequestObjectResult>(result);
             Assert.Equal("Cannot delete ingredient 'Nutmeg' as it is used in one or more recipes", badRequest.Value);
         }
@@ -318,6 +347,7 @@ namespace RecipeFinder.Tests
         [Fact]
         public async Task Delete_WhenException_ReturnsStatusCode500()
         {
+            // Arrange
             var options = new DbContextOptionsBuilder<CookingContext>()
                 .UseInMemoryDatabase(databaseName: "IngredientsDb16")
                 .Options;
@@ -326,8 +356,10 @@ namespace RecipeFinder.Tests
             var logger = new LoggerFactory().CreateLogger<IngredientsController>();
             var controller = new IngredientsController(context, logger);
 
+            // Act
             var result = await controller.Delete(1);
 
+            // Assert
             var statusResult = Assert.IsType<ObjectResult>(result);
             Assert.Equal(500, statusResult.StatusCode);
             Assert.Equal("An error occurred while deleting the ingredient", statusResult.Value);

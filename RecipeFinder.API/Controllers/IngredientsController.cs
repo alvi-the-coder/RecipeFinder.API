@@ -6,9 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace RecipeFinder.API.Controllers
 {
-    /// <summary>
-    /// Controller handling all ingredient-related operations
-    /// </summary>
+    // Controller handling all ingredient-related operations
     [Route("api/[controller]")]
     [ApiController]
     public class IngredientsController : ControllerBase
@@ -22,9 +20,8 @@ namespace RecipeFinder.API.Controllers
             _logger = logger;
         }
 
-        /// <summary>
-        /// Gets all ingredients
-        /// </summary>
+        // Gets all ingredients
+        // </summary>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<IngredientDto>>> GetAll()
         {
@@ -44,9 +41,8 @@ namespace RecipeFinder.API.Controllers
             }
         }
 
-        /// <summary>
-        /// Gets a specific ingredient by ID
-        /// </summary>
+        // Gets a specific ingredient by ID
+        // </summary>
         [HttpGet("{id}")]
         public async Task<ActionResult<IngredientDto>> GetById(int id)
         {
@@ -70,9 +66,7 @@ namespace RecipeFinder.API.Controllers
             }
         }
 
-        /// <summary>
-        /// Creates a new ingredient
-        /// </summary>
+        // Creates a new ingredient
         [HttpPost]
         public async Task<ActionResult<IngredientDto>> Create(IngredientDto ingredientDto)
         {
@@ -103,10 +97,8 @@ namespace RecipeFinder.API.Controllers
                 return StatusCode(500, "An error occurred while creating the ingredient");
             }
         }
-
-        /// <summary>
-        /// Updates an existing ingredient
-        /// </summary>
+        
+        // Updates an existing ingredient
         [HttpPut("{id}")]
         public async Task<IActionResult> Update(int id, IngredientDto ingredientDto)
         {
@@ -140,9 +132,7 @@ namespace RecipeFinder.API.Controllers
             }
         }
 
-        /// <summary>
-        /// Deletes an ingredient if it's not used in any recipes
-        /// </summary>
+        // Deletes an ingredient if it's not used in any recipes
         [HttpDelete("{id}")]
         public async Task<IActionResult> Delete(int id)
         {
